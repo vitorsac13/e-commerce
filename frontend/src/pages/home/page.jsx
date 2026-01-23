@@ -1,35 +1,75 @@
 import styles from './page.module.css'
+import { useEffect, useState } from "react"
+import { Link } from 'react-router-dom'
 
 export default function Home() {
-    const products = [
-        { id: 1, name: "Notebook Gamer", price: 4599.90 },
-        { id: 2, name: "Smartphone Pro", price: 3299.99 },
-        { id: 3, name: "Headphone Bluetooth", price: 499.90 },
-        { id: 4, name: "Mouse Gamer RGB", price: 199.90 },
-        { id: 5, name: "Teclado Mecânico", price: 599.90 },
-        { id: 6, name: "Monitor 27''", price: 1899.00 },
-        { id: 7, name: "Cadeira Gamer", price: 1499.90 },
-        { id: 8, name: "Webcam Full HD", price: 349.90 }
-    ]
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true)
+    const API_URL = "http://localhost:3000/products"
+    // para os disponíveis: const API_URL = "http://localhost:3000/products/availables"
+    
+
+    useEffect(() => {
+        fetch(API_URL)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setProducts(data.body)
+                }
+            })
+            .catch(error => {
+                console.error("Error loading products:", error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }, [])
+
+    const addToCart = (product) => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || []
+
+        const alreadyInCart = cart.find(item => item._id === product._id)
+
+        if (!alreadyInCart) {
+            cart.push(product)
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+    }
+
+    if (loading) {
+        return <h2 className={styles.loadingText}>Carregando produtos...</h2>
+    }
 
     return (
         <div className={styles.homeContainer}>
             <h1 className={styles.homeTitle}>🛒 Produtos em destaque</h1>
 
             <div className={styles.productsGrid}>
-                {products.map(product => (
-                    <div key={product.id} className={styles.productCard}>
-                        <div className={styles.productImage}>
-                            <span>Imagem</span>
-                        </div>
+                {products.length === 0 && (
+                    <p>Nenhum produto encontrado.</p>
+                )}
 
-                        <h2 className={styles.productName}>{product.name}</h2>
+                {products.map(product => (
+                    <div key={product._id} className={styles.productCard}>
+                        <Link to={`/product/${product._id}`} className={styles.productImage}>
+                            <img src={product.image} alt={product.name}/>
+                        </Link>
+
+                        <Link to={`/product/${product._id}`} className={styles.productName}>
+                            {product.name}
+                        </Link>
 
                         <p className={styles.productPrice}>
-                            R$ {product.price.toFixed(2)}
+                            R$ {Number(product.price).toLocaleString('pt-BR', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            })}
                         </p>
 
-                        <button className={styles.productButton}>
+                        <button className={styles.productButton} onClick={() => {
+                            addToCart(product)
+                            alert('Produto adicionado ao carrinho 🛒')
+                        }}>
                             Adicionar ao carrinho
                         </button>
                     </div>
