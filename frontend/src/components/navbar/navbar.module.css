@@ -20,10 +20,6 @@
     gap: 1.2rem;
 }
 
-.navbarLink {
-    color: antiquewhite;
-}
-
 .navbarLinksContainer {
     display: flex;
     justify-content: center;
