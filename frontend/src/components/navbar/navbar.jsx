@@ -6,35 +6,43 @@ import { Link } from 'react-router-dom'
 
 export default function Navbar() {
     const [openMenu, setOpenMenu] = useState(false)
-    const handleOpenMenu = () => {
-        setOpenMenu(!openMenu)
-    }
 
-    return(
+    return (
         <nav className={styles.navbarContainer}>
+            {/* DESKTOP */}
             <div className={styles.navbarItems}>
-                <div className={styles.navbarLinksContainer}>
-                    <Link to={'/'} className={styles.navbarLink}>Home</Link>
-                    <Link to={'/products'} className={styles.navbarLink}>Produtos</Link>
-                    <Link to={'/cart'}><LuShoppingCart className={styles.navbarLink} /></Link>
-                    <Link to={'/profile'}><LuUserRound className={styles.navbarLink} /></Link>
+                <div className={styles.navbarLeft}>
+                    <Link to="/" className={styles.navbarLink}>Home</Link>
+                    <Link to="/products" className={styles.navbarLink}>Produtos</Link>
+                </div>
+
+                <div className={styles.navbarRight}>
+                    <Link to="/cart">
+                        <LuShoppingCart className={styles.navbarIcon} />
+                    </Link>
+                    <Link to="/profile">
+                        <LuUserRound className={styles.navbarIcon} />
+                    </Link>
                 </div>
             </div>
 
+            {/* MOBILE */}
             <div className={styles.mobileNavbarItems}>
-                <div className={styles.mobileNavbarBtns}>
-                    <LuShoppingCart className={styles.navbarLink} />
-                    <LuMenu className={styles.navbarLink} onClick={handleOpenMenu} />
-                </div>
+                <Link to="/cart">
+                    <LuShoppingCart className={styles.navbarIcon} />
+                </Link>
+
+                <LuMenu
+                    className={styles.navbarIcon}
+                    onClick={() => setOpenMenu(!openMenu)}
+                />
             </div>
-            <Drawer
-            anchor='right'
-            open={openMenu}
-            onClose={handleOpenMenu}
-            >
+
+            <Drawer anchor="right" open={openMenu} onClose={() => setOpenMenu(false)}>
                 <div className={styles.drawer}>
-                    <Link to={'/'} className={styles.navbarLink}>Home</Link>
-                    <Link to={'/products'} className={styles.navbarLink}>Produtos</Link>
+                    <Link to="/" className={styles.drawerLink}>Home</Link>
+                    <Link to="/products" className={styles.drawerLink}>Produtos</Link>
+                    <Link to="/profile" className={styles.drawerLink}>Perfil</Link>
                 </div>
             </Drawer>
         </nav>

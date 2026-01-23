@@ -1,6 +1,9 @@
 .navbarContainer {
     background-color: steelblue;
-    height: 55px;
+    height: 60px;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .navbarItems {
@@ -8,7 +11,13 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin: 0 auto;
+}
+
+.navbarLeft,
+.navbarRight {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
 }
 
 .navbarLink {
@@ -21,6 +30,30 @@
     align-items: center;
     gap: 1em;
     padding: 0.5em;
+}
+
+.navbarLink {
+    color: antiquewhite;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.navbarLink:hover {
+    opacity: 0.85;
+}
+
+.navbarIcon {
+    color: antiquewhite;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.navbarIcon:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
 }
 
 .mobileNavbarItems {
@@ -39,12 +72,22 @@
 .drawer {
     display: flex;
     flex-direction: column;
-    height: 100%;
     justify-content: center;
     align-items: center;
-    padding: 2em;
-    gap: 1em;
-    font-size: xx-large;
+    height: 100%;
+    padding: 2rem;
+    gap: 1.5rem;
+    background-color: steelblue;
+}
+
+.drawerLink {
+    color: antiquewhite;
+    font-size: 1.4rem;
+    text-decoration: none;
+}
+
+.drawerLink:hover {
+    opacity: 0.85;
 }
 
 @media screen and (max-width: 600px) {
@@ -54,8 +97,8 @@
 
     .mobileNavbarItems {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
     }
 }
