@@ -17,6 +17,15 @@ export default class ProductController {
         }
     }
 
+    async getProductById(productId) {
+        try {
+            const product = await this.dao.getProductById(productId)
+            return ok(product)
+        } catch (error) {
+            return serverError(error)
+        }
+    }
+
     async getAvailableProducts(){
         try {
             const products = await this.dao.getAvailableProducts()
