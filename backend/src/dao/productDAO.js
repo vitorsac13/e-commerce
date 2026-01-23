@@ -11,6 +11,12 @@ export default class ProductDAO {
         return result
     }
 
+    async getProductById(productId) {
+        const result = await Mongo.db.collection(collectionName).findOne({ _id: new ObjectId(productId) })
+
+        return result
+    }
+
     async getAvailableProducts(){
         const result = await Mongo.db.collection(collectionName).find({ available: true }).toArray()
 
