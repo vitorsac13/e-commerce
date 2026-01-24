@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import styles from './page.module.css'
+import { toast } from 'react-toastify'
 
 export default function Product() {
     const { id } = useParams()
@@ -41,34 +42,71 @@ export default function Product() {
     }
 
     return (
-        <div className={styles.productDetailsContainer}>
-            <div className={styles.productDetailsCard}>
-                <div className={styles.productImage}>
-                    <img src={product.image} alt={product.name} />
+        <div className={styles.productPage}>
+            <div className={styles.productCard}>
+                
+                {/* COLUNA ESQUERDA */}
+                <div className={styles.leftColumn}>
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className={styles.productImage}
+                    />
+
+                    <div className={styles.descriptionBox}>
+                        <h3>Descrição</h3>
+                        <p>
+                            {product.description || "Descrição não disponível."}
+                        </p>
+                    </div>
                 </div>
 
-                <div className={styles.productInfo}>
+                {/* COLUNA DIREITA */}
+                <div className={styles.rightColumn}>
                     <h1>{product.name}</h1>
 
-                    <p className={styles.productPrice}>
-                        R$ {Number(product.price).toFixed(2)}
+                    <p className={styles.price}>
+                        R$ {Number(product.price).toLocaleString('pt-BR', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })}
                     </p>
 
-                    <p className={`product-status ${product.available ? "available" : "unavailable"}`}>
+                    <span
+                        className={`${styles.status} ${
+                            product.available ? styles.available : styles.unavailable
+                        }`}
+                    >
                         {product.available ? "Disponível" : "Indisponível"}
-                    </p>
+                    </span>
 
-                    <div className={styles.productActions}>
+                    <div className={styles.specs}>
+                        <h3>Especificações</h3>
+
+                        <ul>
+                            <li><strong>Marca:</strong> {product.brand || "-"}</li>
+                            <li><strong>Categoria:</strong> {product.category || "-"}</li>
+                            <li><strong>Peso:</strong> {product.weight || "-"} kg</li>
+                        </ul>
+                    </div>
+
+                    <div className={styles.actions}>
                         <button onClick={() => navigate("/")}>
                             Voltar
                         </button>
 
-                        <button className={styles.buy}
-                        onClick={() => {
-                            addToCart(product)
-                            alert('Produto adicionado ao carrinho 🛒')
-                        }}
-                        >Comprar</button>
+                        <button
+                            className={styles.buyButton}
+                            onClick={() => {
+                                addToCart(product)
+                                toast.success('Produto adicionado ao carrinho 🛒', {
+                                    position: 'bottom-right',
+                                    autoClose: 2000
+                                })
+                            }}
+                        >
+                            Comprar
+                        </button>
                     </div>
                 </div>
             </div>

@@ -16,6 +16,7 @@ export default function Navbar() {
                 </div>
 
                 <div className={styles.navbarRight}>
+                    <Link to="/myorders" className={styles.navbarLink}>Meus Pedidos</Link>
                     <Link to="/"><LuHouse className={styles.navbarIcon} /></Link>
                     <Link to="/cart"><LuShoppingCart className={styles.navbarIcon} /></Link>
                     <Link to="/profile"><LuUserRound className={styles.navbarIcon} /></Link>

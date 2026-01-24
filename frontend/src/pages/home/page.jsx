@@ -1,6 +1,7 @@
 import styles from './page.module.css'
 import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function Home() {
     const [products, setProducts] = useState([])
@@ -42,7 +43,7 @@ export default function Home() {
 
     return (
         <div className={styles.homeContainer}>
-            <h1 className={styles.homeTitle}>🛒 Produtos em destaque</h1>
+            <h1 className={styles.homeTitle}>🛒 Produtos Recomendados</h1>
 
             <div className={styles.productsGrid}>
                 {products.length === 0 && (
@@ -68,7 +69,13 @@ export default function Home() {
 
                         <button className={styles.productButton} onClick={() => {
                             addToCart(product)
-                            alert('Produto adicionado ao carrinho 🛒')
+                            toast.success('Produto adicionado ao carrinho 🛒', {
+                            position: 'bottom-right',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true
+                            })
                         }}>
                             Adicionar ao carrinho
                         </button>

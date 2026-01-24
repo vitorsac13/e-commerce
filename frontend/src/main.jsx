@@ -9,6 +9,9 @@ import Cart from './pages/cart/page.jsx'
 import Profile from './pages/profile/page.jsx'
 import Auth from './pages/auth/page.jsx'
 import Products from './pages/products/page.jsx'
+import Product from './pages/product/page.jsx'
+import Order from './pages/order/page.jsx'
+import MyOrders from './pages/myOrders/page.jsx'
 
 const pages = createBrowserRouter([
 	{
@@ -20,6 +23,9 @@ const pages = createBrowserRouter([
 			{ path: '/profile', element: <Profile /> },
 			{ path: '/auth', element: <Auth /> },
 			{ path: '/products', element: <Products /> },
+			{ path: '/product/:id', element: <Product /> },
+			{ path: '/order', element: <Order /> },
+			{ path: '/myorders', element: <MyOrders /> },
 		]
 	}
 ])

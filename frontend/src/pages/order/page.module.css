@@ -1,0 +1,87 @@
+.orderContainer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.orderContainer h1 {
+    margin-bottom: 2rem;
+}
+
+.orderGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.box {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.box h2 {
+    margin-bottom: 0.5rem;
+}
+
+.box input,
+.box textarea {
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+.box textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.box label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.finishBtn {
+    padding: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    background: steelblue;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.finishBtn:hover {
+    background: #1e40af;
+}
+
+.empty {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+    .orderGrid {
+        grid-template-columns: 1fr;
+    }
+}

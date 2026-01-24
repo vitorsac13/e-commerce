@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { LuTrash2 } from 'react-icons/lu'
 import styles from './page.module.css'
+import { useNavigate } from "react-router-dom"
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([])
     const [coupon, setCoupon] = useState('')
     const [discount, setDiscount] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const cart = JSON.parse(localStorage.getItem('cart')) || []
@@ -99,8 +101,11 @@ export default function Cart() {
                                     })}</strong>
                     </div>
 
-                    <button className={styles.checkoutBtn}>
-                        Finalizar compra
+                    <button
+                    className={styles.checkoutBtn}
+                    onClick={() => navigate('/order')}
+                    >
+                    Finalizar compra
                     </button>
                 </div>
             </div>
