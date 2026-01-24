@@ -1,7 +1,7 @@
 import { Mongo } from "../database/mongo.js"
 import { ObjectId } from 'mongodb'
 
-const collectionName = 'products'
+const collectionName = 'orders'
 
 export default class OrderDAO {
 
@@ -11,6 +11,14 @@ export default class OrderDAO {
         return result
     }
 
+    async getOrdersByUserId(userId) {
+        return await Mongo.db
+            .collection(collectionName)
+            .find({ userId })
+            .sort({ createdAt: -1 })
+            .toArray()
+    }
+
     async getAvailableOrders(){
         const result = await Mongo.db.collection(collectionName).find({ available: true }).toArray()
 
@@ -18,7 +26,12 @@ export default class OrderDAO {
     }
 
     async addOrder(orderData){
-        const result = await Mongo.db.collection(collectionName).insertOne(orderData)
+        orderData.status = 'pending'
+        orderData.createdAt = new Date()
+
+        const result = await Mongo.db
+            .collection(collectionName)
+            .insertOne(orderData)
 
         return result
     }

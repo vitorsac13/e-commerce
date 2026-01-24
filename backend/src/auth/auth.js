@@ -68,6 +68,7 @@ authRouter.post('/signup', async (req, res) => {
         const result = await Mongo.db
         .collection(collectionName)
         .insertOne({
+            fullname: req.body.fullname,
             email: req.body.email,
             password: hashedPassword,
             salt: salt
@@ -96,4 +97,50 @@ authRouter.post('/signup', async (req, res) => {
     })
 })
 
+authRouter.post('/login', (req, res) => {
+    passport.authenticate('local', (error, user) => {
+        if(error){
+            return res.status(500).send({
+                success: false,
+                statusCode: 500,
+                body: {
+                    text: 'Error during authentication!',
+                    error
+                }
+            })
+        }
+
+        if(!user){
+            return res.status(400).send({
+                success: false,
+                statusCode: 400,
+                body: {
+                    text: 'User not found!',
+                    error
+                }
+            })
+        }
+
+        const token = jwt.sign(
+        {
+            id: user._id.toString(),
+            email: user.email
+        },
+        'secret',
+        { expiresIn: '1h' }
+        )
+
+        const { password, salt, ...safeUser } = user
+
+        return res.status(200).send({
+            success: true,
+            statusCode: 200,
+            body: {
+                text: 'User logged in correctly!',
+                user: safeUser,
+                token
+            }
+        })
+    })(req, res)
+})
 export default authRouter
