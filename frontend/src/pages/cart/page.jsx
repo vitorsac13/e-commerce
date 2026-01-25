@@ -30,7 +30,7 @@ export default function Cart() {
     }
 
     const getTotal = () => {
-        const total = cartItems.reduce((sum, item) => sum + item.price, 0)
+        const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
         return total - (total * discount)
     }
 
@@ -40,6 +40,30 @@ export default function Cart() {
                 <h2>Seu carrinho está vazio 🛒</h2>
             </div>
         )
+    }
+
+    function increaseQuantity(productId) {
+        const updated = cartItems.map(item =>
+            item._id === productId
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+        )
+
+        setCartItems(updated)
+        localStorage.setItem('cart', JSON.stringify(updated))
+    }
+
+    function decreaseQuantity(productId) {
+        const updated = cartItems
+            .map(item =>
+                item._id === productId
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            )
+            .filter(item => item.quantity > 0)
+
+        setCartItems(updated)
+        localStorage.setItem('cart', JSON.stringify(updated))
     }
 
     return (
@@ -63,6 +87,14 @@ export default function Cart() {
                                 })}</span>
                             </div>
 
+                            {/* CONTROLE DE QUANTIDADE */}
+                            <div className={styles.quantityControl}>
+                                <button onClick={() => decreaseQuantity(product._id)}>-</button>
+                                <span>{product.quantity}</span>
+                                <button onClick={() => increaseQuantity(product._id)}>+</button>
+                            </div>
+
+                            {/* BOTÃO DE REMOVER */}
                             <button
                                 className={styles.removeBtn}
                                 onClick={() => removeItem(product._id)}

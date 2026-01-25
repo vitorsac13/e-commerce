@@ -51,6 +51,28 @@
     font-weight: bold;
 }
 
+.quantityControl {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantityControl button {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: #e5e7eb;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.quantityControl span {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
 .removeBtn {
     display: flex;
     align-items: center;
