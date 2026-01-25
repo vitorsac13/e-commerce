@@ -42,9 +42,6 @@ export default function Product() {
 
         // Salva o carrinho atualizado no localStorage
         localStorage.setItem('cart', JSON.stringify(cart))
-
-        // Atualiza o estado (useState) do React para refletir na interface
-        setCartItems(cart)
     }
 
     if (loading) {
@@ -109,16 +106,16 @@ export default function Product() {
                             Voltar
                         </button>
 
-                        <button
-                            className={styles.buyButton}
-                            onClick={() => {
-                                addToCart(product)
-                                toast.success('Produto adicionado ao carrinho 🛒', {
-                                    position: 'bottom-right',
-                                    autoClose: 2000
-                                })
-                            }}
-                        >
+                        <button className={styles.buyButton} onClick={() => {
+                            addToCart(product)
+                            toast.success('Produto adicionado ao carrinho 🛒', {
+                            position: 'bottom-right',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true
+                            })
+                        }}>
                             Comprar
                         </button>
                     </div>

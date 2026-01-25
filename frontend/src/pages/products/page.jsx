@@ -46,9 +46,6 @@ export default function Products() {
 
         // Salva o carrinho atualizado no localStorage
         localStorage.setItem('cart', JSON.stringify(cart))
-
-        // Atualiza o estado (useState) do React para refletir na interface
-        setCartItems(cart)
     }
 
     if (loading) {
