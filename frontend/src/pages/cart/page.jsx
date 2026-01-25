@@ -10,13 +10,19 @@ export default function Cart() {
     const navigate = useNavigate()
 
     useEffect(() => {
+        // Recupera o carrinho salvo no localStorage ou cria um array vazio
         const cart = JSON.parse(localStorage.getItem('cart')) || []
         setCartItems(cart)
     }, [])
 
     const removeItem = (id) => {
+        // Cria um novo array removendo o item cujo _id seja igual ao id recebido
         const updatedCart = cartItems.filter(item => item._id !== id)
+
+        // Atualiza o estado do carrinho no React
         setCartItems(updatedCart)
+
+        // Atualiza o carrinho salvo no localStorage para manter a persistência
         localStorage.setItem('cart', JSON.stringify(updatedCart))
     }
 
@@ -24,7 +30,6 @@ export default function Cart() {
         if (coupon === 'DESCONTO5') {
             setDiscount(0.05)
         } else {
-            alert('Cupom inválido ❌')
             setDiscount(0)
         }
     }

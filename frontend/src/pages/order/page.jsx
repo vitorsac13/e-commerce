@@ -16,22 +16,26 @@ export default function Order() {
     })
 
     useEffect(() => {
+        // Recupera o carrinho salvo no localStorage ou cria um array vazio
         const cart = JSON.parse(localStorage.getItem("cart")) || []
+        // Atualiza o useState cartItems
         setCartItems(cart)
     }, [])
 
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0)
+    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
     const finishOrder = async () => {
+        // Verifica se os campos obrigatórios estão preenchidos
         if (!form.name || !form.address) {
             toast.error("Preencha todos os dados obrigatórios ❌")
             return
         }
 
+        // Montagem do objeto do pedido
         const orderData = {
             user: {
                 name: form.name,
@@ -44,6 +48,7 @@ export default function Order() {
         }
 
         try {
+            // Chama o service que faz POST /orders e envia o orderData no body com o JWT no header
             const result = await createOrder(orderData)
 
             if (result.success) {
