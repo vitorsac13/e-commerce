@@ -2,7 +2,7 @@
 
 **`Descompactar node_modules.rar dentro da pasta backend`**
 
-Projeto Aberto E-Commerce com Node.JS de backend e React para o frontend.
+Projeto Aberto E-Commerce com Node.JS de backend, React para o frontend e MongoDB para base de dados.
 
 <img 
     align="left" 
