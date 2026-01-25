@@ -11,7 +11,7 @@ Projeto Aberto E-Commerce com Node.JS de backend e React para o frontend.
     width="30px" 
     style="padding-right: 10px;" 
     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" 
-/>.
+/>
 
 Libs Front-end: Vite (npm create vite@latest frontend) -> React.
 NPM (npm install).
