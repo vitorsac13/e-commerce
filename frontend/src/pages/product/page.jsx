@@ -23,17 +23,27 @@ export default function Product() {
     }, [id])
 
     const addToCart = (product) => {
+        // Recupera o carrinho salvo no localStorage ou cria um array vazio
         const cart = JSON.parse(localStorage.getItem('cart')) || []
 
+        // Verifica se o produto já está no carrinho
         const existing = cart.find(item => item._id === product._id)
 
         if (existing) {
+            // Se já existir, apenas incrementa a quantidade
             existing.quantity += 1
         } else {
-            cart.push({ ...product, quantity: 1 })
+            // Se não existir, adiciona o produto no carrinho com quantidade inicial 1
+            cart.push({
+                ...product,
+                quantity: 1
+            })
         }
 
+        // Salva o carrinho atualizado no localStorage
         localStorage.setItem('cart', JSON.stringify(cart))
+
+        // Atualiza o estado (useState) do React para refletir na interface
         setCartItems(cart)
     }
 
