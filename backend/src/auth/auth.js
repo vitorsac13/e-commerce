@@ -79,7 +79,7 @@ authRouter.post('/signup', async (req, res) => {
 
             const token = jwt.sign(
             { id: user._id, email: user.email },
-            'secret',
+            process.env.JWT_SECRET,
             { expiresIn: '1h' }
             )
 
@@ -126,7 +126,7 @@ authRouter.post('/login', (req, res) => {
             id: user._id.toString(),
             email: user.email
         },
-        'secret',
+        process.env.JWT_SECRET,
         { expiresIn: '1h' }
         )
 
