@@ -18,33 +18,59 @@ export default function MyOrders() {
         loadOrders()
     }, [])
 
-    if (loading) return <p>Carregando pedidos...</p>
+    if (loading) {
+        return <p className={styles.loading}>Carregando pedidos...</p>
+    }
 
     return (
-        <div className={styles.myOrders}>
+        <div className={styles.container}>
             <h1>Meus Pedidos</h1>
 
-            {orders.length === 0 && <p>Você ainda não fez pedidos.</p>}
-
-            {orders.map(order => (
-                <div key={order._id} className={styles.orderCard}>
-                    <p><strong>Status:</strong> {order.status}</p>
-                    <p><strong>Total:</strong> R$ {order.total}</p>
-                    <p><strong>Pagamento:</strong> {order.paymentMethod}</p>
-                    <p>
-                        <strong>Data:</strong>{' '}
-                        {new Date(order.createdAt).toLocaleString()}
-                    </p>
-
-                    <div className={styles.items}>
-                        {order.items.map((item, index) => (
-                            <p key={index}>
-                                {item.name} - {item.quantity}x
-                            </p>
-                        ))}
-                    </div>
+            {orders.length === 0 && (
+                <div className={styles.empty}>
+                    <p>Você ainda não fez pedidos.</p>
                 </div>
-            ))}
+            )}
+
+            <div className={styles.orders}>
+                {orders.map(order => (
+                    <div key={order._id} className={styles.orderCard}>
+
+                        {/* HEADER */}
+                        <div className={styles.header}>
+                            <span>
+                                Pedido #{order._id.slice(-6).toUpperCase()}
+                            </span>
+                            <span className={styles.status}>
+                                {order.status}
+                            </span>
+                        </div>
+
+                        {/* ITENS */}
+                        <div className={styles.items}>
+                            {order.items.map((item, index) => (
+                                <div key={index} className={styles.item}>
+                                    <span>{item.name}</span>
+                                    <span>{item.quantity}x</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* FOOTER */}
+                        <div className={styles.footer}>
+                            <span>
+                                Total: R$ {order.total.toLocaleString('pt-BR', {
+                                    minimumFractionDigits: 2
+                                })}
+                            </span>
+                            <span>
+                                {new Date(order.createdAt).toLocaleDateString('pt-BR')}
+                            </span>
+                        </div>
+
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
