@@ -1,11 +1,12 @@
 import styles from './page.module.css'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function Products() {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [search, setSearch] = useState('')
     const API_URL = "http://localhost:3000/products"
     // para os disponíveis: const API_URL = "http://localhost:3000/products/availables"
     
@@ -48,6 +49,12 @@ export default function Products() {
         localStorage.setItem('cart', JSON.stringify(cart))
     }
 
+    const filteredProducts = useMemo(() => {
+        return products.filter(product =>
+            product.name.toLowerCase().includes(search.toLowerCase())
+        )
+    }, [products, search])
+
     if (loading) {
         return <h2 className={styles.loadingText}>Carregando produtos...</h2>
     }
@@ -55,12 +62,22 @@ export default function Products() {
     return (
         <div className={styles.homeContainer}>
 
+            <div className={styles.searchContainer}>
+                <input
+                    type="text"
+                    placeholder="Buscar produtos..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className={styles.searchInput}
+                />
+            </div>
+
             <div className={styles.productsGrid}>
-                {products.length === 0 && (
+                {filteredProducts.length === 0 && (
                     <p>Nenhum produto encontrado.</p>
                 )}
 
-                {products.map(product => (
+                {filteredProducts.map(product => (
                     <div key={product._id} className={styles.productCard}>
                         <Link to={`/product/${product._id}`} className={styles.productImage}>
                             <img src={product.image} alt={product.name}/>
