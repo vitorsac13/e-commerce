@@ -12,6 +12,7 @@ import Products from './pages/products/page.jsx'
 import Product from './pages/product/page.jsx'
 import Order from './pages/order/page.jsx'
 import MyOrders from './pages/myOrders/page.jsx'
+import Admin from './pages/admin/page.jsx'
 
 const pages = createBrowserRouter([
 	{
@@ -26,6 +27,7 @@ const pages = createBrowserRouter([
 			{ path: '/product/:id', element: <Product /> },
 			{ path: '/order', element: <Order /> },
 			{ path: '/myorders', element: <MyOrders /> },
+			{ path: '/admin', element: <Admin /> },
 		]
 	}
 ])
