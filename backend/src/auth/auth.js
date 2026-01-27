@@ -89,7 +89,8 @@ authRouter.post('/signup', async (req, res) => {
                 fullname: req.body.fullname,
                 email: req.body.email,
                 password: hashedPassword,
-                salt: salt
+                salt: salt,
+                role: 'user'
             })
 
         // Se o usuário foi inserido com sucesso
@@ -101,7 +102,7 @@ authRouter.post('/signup', async (req, res) => {
 
             // Gera o token JWT
             const token = jwt.sign(
-                { id: user._id, email: user.email },
+                { id: user._id, email: user.email, role: user.role },
                 process.env.JWT_SECRET,
                 { expiresIn: '1h' }
             )
@@ -155,7 +156,8 @@ authRouter.post('/login', (req, res) => {
         const token = jwt.sign(
             {
                 id: user._id.toString(),
-                email: user.email
+                email: user.email,
+                role: user.role
             },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
