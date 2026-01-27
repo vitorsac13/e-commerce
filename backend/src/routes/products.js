@@ -1,5 +1,7 @@
 import express from 'express'
 import ProductController from '../controllers/productController.js'
+import authMiddleware from '../helpers/authMiddleware.js'
+import adminMiddleware from '../helpers/adminMiddleware.js'
 
 const productsRouter = express.Router()
 
@@ -22,17 +24,17 @@ productsRouter.get('/availables', async (req, res) => {
     res.status(statusCode).send({ success, statusCode, body })
 })
 
-productsRouter.post('/', async (req, res) => {
+productsRouter.post('/', authMiddleware, adminMiddleware, async (req, res) => {
     const { success, statusCode, body } = await productController.addProduct(req.body)
     res.status(statusCode).send({ success, statusCode, body })
 })
 
-productsRouter.delete('/:id', async (req, res) => {
+productsRouter.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     const { success, statusCode, body } = await productController.deleteProduct(req.params.id)
     res.status(statusCode).send({ success, statusCode, body })
 })
 
-productsRouter.put('/:id', async (req, res) => {
+productsRouter.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     const { success, statusCode, body } = await productController.updateProduct(req.params.id, req.body)
     res.status(statusCode).send({ success, statusCode, body })
 })
