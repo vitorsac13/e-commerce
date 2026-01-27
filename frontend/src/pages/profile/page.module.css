@@ -43,10 +43,20 @@
     margin-bottom: 2rem;
 }
 
-.profileActions {
+.profileAction {
     display: flex;
-    gap: 1rem;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.adminBtn {
+    color: white;
+    background-color: steelblue;
+}
+
+.adminBtn:hover {
+    background-color: #163a9c;
 }
 
 .btn {
