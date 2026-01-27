@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function Auth() {
     const [formType, setFormType] = useState('login')
-    const [formData, setFormData] = useState(null)
+    const [formData, setFormData] = useState({})
     const { login, signup, authLoading } = authServices()
 
     const navigate = useNavigate()
@@ -19,12 +19,8 @@ export default function Auth() {
     }, [authData])
 
     const handleChangeFormType = () => {
-        setFormData(null)
-        if (formType === 'login') {
-            setFormType('signup')
-        } else {
-            setFormType('login')
-        }
+        setFormData({})
+        setFormType(formType === 'login' ? 'signup' : 'login')
     }
 
     const handleFormDataChange = (e) => {
