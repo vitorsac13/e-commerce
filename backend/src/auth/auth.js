@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import LocalStrategy from 'passport-local'
+import { Strategy as LocalStrategy } from 'passport-local'
 import crypto from 'crypto'
 import { Mongo } from '../database/mongo.js'
 import jwt from 'jsonwebtoken'
@@ -134,7 +134,7 @@ authRouter.post('/login', (req, res) => {
                 statusCode: 500,
                 body: {
                     text: 'Error during authentication!',
-                    error
+                    
                 }
             })
         }
@@ -146,7 +146,7 @@ authRouter.post('/login', (req, res) => {
                 statusCode: 400,
                 body: {
                     text: 'User not found!',
-                    error
+                    
                 }
             })
         }

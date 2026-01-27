@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import passport from 'passport'
 import { Mongo } from './database/mongo.js'
 import { config } from 'dotenv'
 import authRouter from './auth/auth.js'
@@ -20,6 +21,7 @@ async function main () {
 
     app.use(express.json())
     app.use(cors())
+    app.use(passport.initialize())
 
     app.get('/', (req, res) => {
         res.send({
