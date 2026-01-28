@@ -20,3 +20,10 @@ React Icons (npm install react-icons).
 React Router DOM (npm install react-router-dom).
 Toastify (npm install react-toastify).
 
+Libs Back-end: Express (npm install express).
+MongoDB (npm install mongodb).
+Cors (npm install cors).
+Passport (npm install passport)
+Passport-local (npm install passport-local)
+Crypto (npm install crypto)
+JsonWebToken (npm install jsonwebtoken)
